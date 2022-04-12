@@ -1,6 +1,7 @@
 import pygame
 
 from utils import get_config
+from map.builder import Builder
 
 
 def init_pygame() -> None:
@@ -18,16 +19,18 @@ def main() -> None:
     clock = pygame.time.Clock()
     running = True
 
+    builder = Builder(screen)
     while running:
         clock.tick(fps)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        # Update
-
         # Rendering
-        screen.fill(config.colors.black)
+        screen.fill(config.colors.blue_violet)
+
+        # Update
+        builder.draw_map()
         # Flip screen
         pygame.display.flip()
 
