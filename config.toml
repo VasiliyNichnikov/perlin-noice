@@ -1,0 +1,19 @@
+[config.screen]
+width = 500
+height = 500
+fps = 60
+
+[config.caption]
+name = "perlin noice"
+
+[config.colors]
+black = [0, 0, 0]
+white = [255, 255, 255]
+blue_violet = [138,43,226]
+
+
+[config.map]
+# Warning: Number of blocks = width / (size_block + boundaries_between_blocks)
+size_block = 16
+# Warning: Must be divided into two
+boundaries_between_blocks = 4
