@@ -1,0 +1,11 @@
+[config.screen]
+width = 500
+height = 500
+fps = 60
+
+[config.caption]
+name = "perlin noice"
+
+[config.colors]
+black = [0, 0, 0]
+white = [255, 255, 255]
