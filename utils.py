@@ -70,7 +70,8 @@ class Map:
     def __init__(self, data: Dict, width: int) -> None:
         self.__size_block = data["size_block"]
         self.__boundaries_between_blocks = data["boundaries_between_blocks"]
-        self.__number_of_blocks = int(width / (self.__size_block + self.__boundaries_between_blocks))
+        self.__frame = data["frame"]
+        self.__number_of_blocks = int((width - self.__frame) / (self.__size_block + self.__boundaries_between_blocks))
 
     @property
     def size_block(self) -> int:
@@ -83,6 +84,10 @@ class Map:
     @property
     def number_of_blocks(self) -> int:
         return self.__number_of_blocks
+
+    @property
+    def half_frame(self) -> int:
+        return self.__frame // 2
 
 
 class Config(BaseConfig):
