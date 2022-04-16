@@ -1,32 +1,17 @@
-import pygame
-from pygame import Surface, Rect
-from utils import get_config
+from pygame import Surface
+
 from map.octave import Octave
+from utils import get_config
+from pygame_base import GameObject
 
 
-class Builder:
+class Builder(GameObject):
     def __init__(self, surface: Surface) -> None:
+        super().__init__(surface)
+
         self.__config = get_config()
-        self.__surface = surface
-        self.__octave = Octave(self.__surface)
+        self.__octave = Octave(self._surface)
 
-    def draw_map(self) -> None:
-        parameters_map = self.__config.map
-        size_block = parameters_map.size_block
-        pos_x, pos_y = parameters_map.borders + parameters_map.half_frame, \
-            parameters_map.borders + parameters_map.half_frame
-        one_step = size_block + parameters_map.borders * 2
+    def update(self) -> None:
+        self.__octave.update()
 
-        for y in range(self.__config.map.number_of_blocks):
-            for x in range(self.__config.map.number_of_blocks):
-                rect = Rect((pos_x, pos_y, size_block, size_block))
-                self.__draw_block(rect)
-                pos_x += one_step
-            pos_x = parameters_map.borders + parameters_map.half_frame
-            pos_y += one_step
-
-        # TODO for testing
-        self.__octave.draw()
-
-    def __draw_block(self, rect: Rect) -> None:
-        pygame.draw.rect(self.__surface, self.__config.colors.white, rect)
