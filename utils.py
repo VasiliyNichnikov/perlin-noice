@@ -3,6 +3,7 @@ from abc import ABC
 from typing import Dict, MutableMapping, Any, Tuple
 
 import toml
+from pygame import Vector2
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PATH_CONFIG = f"{ROOT_DIR}/config.toml"
@@ -52,6 +53,9 @@ class Colors:
         self.__black = tuple(data["black"])
         self.__white = tuple(data["white"])
         self.__blue_violet = tuple(data["blue_violet"])
+        self.__azure = tuple(data["azure"])
+        self.__lemon_chiffon = tuple(data["lemon_chiffon"])
+        self.__misty_rose = tuple(data["misty_rose"])
 
     @property
     def black(self) -> Tuple[int, int, int]:
@@ -65,9 +69,42 @@ class Colors:
     def blue_violet(self) -> Tuple[int, int, int]:
         return self.__blue_violet
 
+    @property
+    def lemon_chiffon(self) -> Tuple[int, int, int]:
+        return self.__lemon_chiffon
+
+    @property
+    def misty_rose(self) -> Tuple[int, int, int]:
+        return self.__misty_rose
+
+
+class Octave:
+    def __init__(self, data: Dict) -> None:
+        self.__angle_top_left = data["angle_top_left"]
+        self.__angle_top_right = data["angle_top_right"]
+        self.__angle_bottom_left = data["angle_bottom_left"]
+        self.__angle_bottom_right = data["angle_bottom_right"]
+
+    @property
+    def angle_top_left(self) -> int:
+        return self.__angle_top_left
+
+    @property
+    def angle_top_right(self) -> int:
+        return self.__angle_top_right
+
+    @property
+    def angle_bottom_left(self) -> int:
+        return self.__angle_bottom_left
+
+    @property
+    def angle_bottom_right(self) -> int:
+        return self.__angle_bottom_right
+
 
 class Map:
     def __init__(self, data: Dict, width: int) -> None:
+        self.__width = width
         self.__size_block = data["size_block"]
         self.__boundaries_between_blocks = data["boundaries_between_blocks"]
         self.__frame = data["frame"]
@@ -79,7 +116,7 @@ class Map:
 
     @property
     def borders(self) -> int:
-        return self.__boundaries_between_blocks / 2
+        return self.__boundaries_between_blocks
 
     @property
     def number_of_blocks(self) -> int:
@@ -89,6 +126,22 @@ class Map:
     def half_frame(self) -> int:
         return self.__frame // 2
 
+    @property
+    def position_top_left(self) -> Vector2:
+        return Vector2(0, 0)
+
+    @property
+    def position_top_right(self) -> Vector2:
+        return Vector2(self.__number_of_blocks, 0)
+
+    @property
+    def position_bottom_left(self) -> Vector2:
+        return Vector2(0, self.__number_of_blocks)
+
+    @property
+    def position_bottom_right(self) -> Vector2:
+        return Vector2(self.__number_of_blocks, self.__number_of_blocks)
+
 
 class Config(BaseConfig):
     def __init__(self) -> None:
@@ -97,6 +150,7 @@ class Config(BaseConfig):
         self.__caption = Caption(self._config["caption"])
         self.__colors = Colors(self._config["colors"])
         self.__map = Map(self._config["map"], self.__screen.width)
+        self.__octave = Octave(self._config["octave"])
 
     @property
     def screen(self) -> Screen:
@@ -113,6 +167,10 @@ class Config(BaseConfig):
     @property
     def map(self) -> Map:
         return self.__map
+
+    @property
+    def octave(self) -> Octave:
+        return self.__octave
 
 
 __config = None

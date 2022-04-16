@@ -9,7 +9,10 @@ name = "perlin noice"
 [config.colors]
 black = [0, 0, 0]
 white = [255, 255, 255]
-blue_violet = [138,43,226]
+blue_violet = [138, 43, 226]
+azure = [240, 255, 255]
+lemon_chiffon = [255, 250, 205]
+misty_rose = [255, 228, 225]
 
 
 [config.map]
@@ -18,3 +21,9 @@ frame = 100
 size_block = 16
 # Warning: Must be divided into two
 boundaries_between_blocks = 4
+
+[config.octave]
+angle_top_left = 45
+angle_bottom_left = 34
+angle_top_right = 23
+angle_bottom_right = -15
