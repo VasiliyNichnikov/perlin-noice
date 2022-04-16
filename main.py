@@ -1,7 +1,7 @@
 import pygame
 
-from utils import get_config
 from map.builder import Builder
+from utils import get_config
 
 
 def init_pygame() -> None:
@@ -30,7 +30,7 @@ def main() -> None:
         screen.fill(config.colors.blue_violet)
 
         # Update
-        builder.draw_map()
+        builder.update()
         # Flip screen
         pygame.display.flip()
 
